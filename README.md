@@ -8,9 +8,9 @@
  - [Technical Guide](https://mitre.github.io/fhir-for-research/modules/smart-on-fhir-tech)
  - [Live Demo](https://shaumik-ashraf.github.com/smart-on-fhir-demo/index.html)
 
-This repository supports the technical guide, and demonstrates a minimal SMART-on-FHIR application. You should follow along the technical guide, but a quickstart guide is posted here for your convnenience.
+This repository supports the technical guide, and demonstrates a minimal SMART-on-FHIR application. You should follow along the technical guide, but a quickstart guide is posted here for your convenience.
 
-### 1. Clone Repository
+### 1. Clone repository
 
 Make sure you have [git](https://git-scm.com/downloads) installed. In a console (windows powershell or terminal) run the following commands:
 
@@ -43,6 +43,8 @@ gem install webrick && ruby -run -e httpd -- -p 8000
 
 ### 3. Confirm your local server is running by visiting <http://localhost:8000/index.html>
 
-### 4. Go to <https://launch.smarthealthit.org>, enter `http://localhost:8000/launch.html` for in the “App’s Launch URL” field, and click “Launch”.
+### 4. Go to <https://launch.smarthealthit.org> and launch an app with URL `http://localhost:8000/launch.html`
 
-The website will then walk you through a provider-side stand-alone EHR SMART app launch, where you will select a fictional patient, and find the patients data loaded into your application. 
+Alternatively you can use the live demo as the app's launch URL: `https://shaumik-ashraf.github.com/smart-on-fhir-demo/launch.html`
+
+The website will then walk you through a provider-side standalone EHR SMART app launch, where you will select a fictional patient and load her data into your application. 
