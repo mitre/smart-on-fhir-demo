@@ -46,7 +46,7 @@ gem install webrick && ruby -run -e httpd -- -p 8000
 
 ### 4. Go to <https://launch.smarthealthit.org> and launch an app with URL `http://localhost:8000/launch.html`
 
-Alternatively you can use the live demo as the app's launch URL: `https://shaumik-ashraf.github.com/smart-on-fhir-demo/launch.html`
+Alternatively you can use the live demo as the app's launch URL: `https://shaumik-ashraf.github.io/smart-on-fhir-demo/launch.html`
 
 The website will then walk you through a provider-side EHR SMART app launch, where you will select a fictional patient and load her data into your application. 
 
