@@ -7,7 +7,7 @@
 
  - [Overview](https://mitre.github.io/fhir-for-research/modules/smart-on-fhir-intro)
  - [Technical Guide](https://mitre.github.io/fhir-for-research/modules/smart-on-fhir-tech)
- - [Live Demo](https://shaumik-ashraf.github.com/smart-on-fhir-demo/index.html)
+ - [Live Demo](https://shaumik-ashraf.github.io/smart-on-fhir-demo/index.html)
 
 This repository supports the technical guide, and demonstrates a minimal SMART-on-FHIR application. You should follow along the technical guide, but a quickstart guide is posted here for your convenience.
 
