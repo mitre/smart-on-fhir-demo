@@ -55,6 +55,8 @@ Alternatively you can use the live demo as the app's launch URL: `https://shaumi
 
 The website will then walk you through a provider-side EHR SMART app launch, where you will select a fictional patient and load her data into your application.
 
+---
+
 ## License
 
 Copyright 2023 The MITRE Corporation
@@ -70,3 +72,7 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
+---
+
+MITRE: Approved for Public Release / Case #23-0966
