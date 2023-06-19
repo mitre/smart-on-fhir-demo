@@ -1,59 +1,75 @@
-# SMART on FHIR Demo
+# SMART on FHIR App (EHR Launch) Demo
 
 ![FHIR Version 4.0.0](https://img.shields.io/badge/FHIR-R4-orange)
-![SMART on FHIR EHR App Launch](https://img.shields.io/badge/SMART--on--FHIR-EHR%20App%20Launch-blueviolet)
 ![Apache 2 License](https://img.shields.io/badge/license-Apache%202-blue)
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/shaumik-ashraf/smart-on-fhir-demo/deploy.yml)
-![GitHub deployments](https://img.shields.io/github/deployments/shaumik-ashraf/smart-on-fhir-demo/github-pages?label=pages)
+![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/mitre/smart-on-fhir-demo/deploy.yml)
+![GitHub deployments](https://img.shields.io/github/deployments/mitre/smart-on-fhir-demo/github-pages?label=pages)
+
+## Purpose
+
+This repository contains a minimal demo SMART on FHIR application to support the [FHIR for Research resources](http://purl.org/fhir-for-research/web).
+
+These resources contain some relevant background information:
 
 - [Overview](https://mitre.github.io/fhir-for-research/modules/smart-on-fhir-intro)
 - [Technical Guide](https://mitre.github.io/fhir-for-research/modules/smart-on-fhir-tech)
-- [Live Demo](https://shaumik-ashraf.github.io/smart-on-fhir-demo/index.html)
 
-This repository supports the technical guide, and demonstrates a minimal SMART-on-FHIR application. You should follow along the technical guide, but a quickstart guide is posted here for your convenience.
+You can see a live demo version of the website in this repository at <https://mitre.github.io/smart-on-fhir-demo>.
+
+## Running locally
 
 ### 1. Clone repository
 
-Make sure you have [git](https://git-scm.com/downloads) installed. In a console (windows powershell or terminal) run the following commands:
+Make sure you have [git](https://git-scm.com/downloads) installed. In a console (Windows Powershell or a terminal prompt on macOS/Linux) run the following commands:
 
 ```
-git clone https://github.com/Shaumik-Ashraf/smart-on-fhir-demo.git
+git clone https://github.com/mitre/smart-on-fhir-demo.git
 cd smart-on-fhir-demo
 ```
 
-### 2. Next launch a static-file HTTP server. A few options are provided based on your computer environment setup:
+### 2. Launch a HTTP server
 
-- python3:
+A few options are provided based on your computer environment setup:
 
-```
-python3 -m http.server 8000
-```
+- If you are using Visual Studio Code (VSCode), you can use [Microsoft's Live Preview extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode.live-server).
 
-- python2:
+  Once the extension is installed, open `index.html` and use the Command Palette to run the "Live Preview: Show Preview (Internal Browser)" command. This will open up a live preview of `index.html` inside VSCode using a web server running on localhost (like the commands below).
 
-```
-python -m SimpleHTTPServer 8000
-```
+- Otherwise, use a PowerShell/Terminal window to run one of the following:
 
-- nodeJS:
+  - python3:
 
-```
-npx http-server ./ -p 8000
-```
+    ```
+    python3 -m http.server 3000
+    ```
 
-- ruby:
+  - python2:
 
-```
-gem install webrick && ruby -run -e httpd -- -p 8000
-```
+    ```
+    python -m SimpleHTTPServer 3000
+    ```
 
-### 3. Confirm your local server is running by visiting <http://localhost:8000/index.html>
+  - nodeJS:
 
-### 4. Go to <https://launch.smarthealthit.org> and launch an app with URL `http://localhost:8000/launch.html`
+    ```
+    npx http-server ./ -p 3000
+    ```
 
-Alternatively you can use the live demo as the app's launch URL: `https://shaumik-ashraf.github.io/smart-on-fhir-demo/launch.html`
+  - ruby:
 
-The website will then walk you through a provider-side EHR SMART app launch, where you will select a fictional patient and load her data into your application.
+    ```
+    gem install webrick && ruby -run -e httpd -- -p 3000
+    ```
+
+### 3. Confirm your local server is running
+
+Verify your server is running by visiting <http://localhost:3000/index.html>. (Note: this should happen automatically if you are using the VSCode extension.)
+
+### 4. Simulate an EHR launch
+
+Go to <https://launch.smarthealthit.org> and launch an app with URL `http://localhost:3000/launch.html` (If you can't get a localhost web server working, you can use this URL instead: `https://mitre.github.io/smart-on-fhir-demo/launch.html`.)
+
+The SMART Launcher website will then walk you through a provider-side EHR SMART app launch, where you will select a fictional patient and load their data into your application.
 
 ---
 
