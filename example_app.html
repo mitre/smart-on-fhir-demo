@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Patient Data Dashboard</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fhirclient/build/fhir-client.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="fhirpath.js/fhirpath-3.5.0.min.js"></script>
+    <script src="fhirpath.js/fhirpath-3.5.0.r4.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <script>
+      document.addEventListener('alpine:init', () => {
+        // window.Alpine = Alpine;
+        Alpine.data("app", () => ({
+          patientName: "",
+          patientMRN: "",
+          conditions: [],
+          medications: [],
+          interactions: [],
+
+          async init() {
+            await this.connectToFHIR();
+          },
+
+          async connectToFHIR() {
+            FHIR.oauth2.ready().then((client) => {
+              client.patient.read().then((patient) => {
+                this.patientName = `${patient.name[0].given.join(" ")} ${
+                  patient.name[0].family
+                }`;
+
+                let path = "Patient.identifier.where(type.coding.system = 'http://terminology.hl7.org/CodeSystem/v2-0203' and type.coding.code = 'MR').value"
+                this.patientMRN = fhirpath.evaluate(patient, path, null, fhirpath_r4_model);
+
+                // Get conditions
+                client
+                  .request(`Condition?patient=${client.patient.id}`)
+                  .then((conditions) => {
+                    let path = "Bundle.entry.where(resource.resourceType='Condition').resource.code.coding"
+                    this.conditions = fhirpath.evaluate(conditions, path, null, fhirpath_r4_model);
+                  });
+
+                // Get medications
+                client
+                  .request(`MedicationRequest?patient=${client.patient.id}`)
+                  .then((medications) => {
+                    this.medications = medications.entry.map(
+                      (e) => e.resource.medicationCodeableConcept.coding[0]
+                    );
+                    this.loadDrugInteractions();
+                  });
+              });
+            });
+          },
+
+          async loadDrugInteractions() {
+            let rxcuis = this.medications.map((m) => m.code).join("+");
+            let response = await axios.get(
+              `https://rxnav.nlm.nih.gov/REST/interaction/list.json?rxcuis=${rxcuis}`
+            );
+            this.interactions =
+              response.data.fullInteractionTypeGroup[0].fullInteractionType.map(
+                (i) => i.interactionPair[0].description
+              );
+          },
+        }));
+      });
+    </script>
+  </head>
+  <body x-data="app" class="p-10">
+    <h1 class="text-3xl mb-10">
+      Patient: <span x-text="patientName"></span> (MRN:
+      <span x-text="patientMRN"></span>)
+    </h1>
+
+    <div class="grid grid-cols-3 gap-4">
+      <div>
+        <h2 class="text-2xl mb-5">Conditions</h2>
+        <ul>
+          <template x-for="condition in conditions">
+            <li>
+              <a x-text="condition.display" x-bind:href="'https://lookup.snomedtools.org/'+condition.code" target="_blank" class="text-blue-600 underline"></a>
+            </li>
+          </template>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-2xl mb-5">Medications</h2>
+        <ul>
+          <template x-for="medication in medications">
+            <li>
+              <a x-text="medication.display" x-bind:href="'https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm='+medication.code" target="_blank" class="text-blue-600 underline"></a>
+            </li>
+          </template>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="text-2xl mb-5">Drug Interactions</h2>
+        <ul>
+          <template x-for="interaction in interactions">
+            <li x-text="interaction"></li>
+          </template>
+        </ul>
+      </div>
+    </div>
+  </body>
+</html>
