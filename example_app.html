@@ -69,17 +69,19 @@
         }));
       });
     </script>
+
+    </style>
   </head>
-  <body x-data="app" class="p-10">
-    <h1 class="text-3xl mb-10">
+  <body x-data="app" class="bg-slate-400">
+    <h1 class="text-3xl p-8 mb-10 bg-violet-200">
       Patient: <span x-text="patientName"></span> (MRN:
       <span x-text="patientMRN"></span>)
     </h1>
 
-    <div class="grid grid-cols-3 gap-4">
-      <div>
-        <h2 class="text-2xl mb-5">Conditions</h2>
-        <ul>
+    <div class="grid grid-cols-3 gap-4 px-10 pb-10">
+      <div class="border-2 border-violet-200 rounded overflow-hidden shadow-lg mx-5  bg-slate-50">
+        <h2 class="text-2xl p-5 mb-5 bg-violet-400">Conditions</h2>
+        <ul class="px-3">
           <template x-for="condition in conditions">
             <li>
               <a x-text="condition.display" x-bind:href="'https://lookup.snomedtools.org/'+condition.code" target="_blank" class="text-blue-600 underline"></a>
@@ -88,9 +90,9 @@
         </ul>
       </div>
 
-      <div>
-        <h2 class="text-2xl mb-5">Medications</h2>
-        <ul>
+      <div class="border-2 border-violet-200 rounded overflow-hidden shadow-lg mx-5  bg-slate-50">
+        <h2 class="text-2xl p-5 mb-5 bg-violet-400">Medications</h2>
+        <ul class="px-3">
           <template x-for="medication in medications">
             <li>
               <a x-text="medication.display" x-bind:href="'https://mor.nlm.nih.gov/RxNav/search?searchBy=RXCUI&searchTerm='+medication.code" target="_blank" class="text-blue-600 underline"></a>
@@ -99,11 +101,12 @@
         </ul>
       </div>
 
-      <div>
-        <h2 class="text-2xl mb-5">Drug Interactions</h2>
-        <ul>
+      <div class="border-2 border-violet-200 rounded overflow-hidden shadow-lg mx-5  bg-slate-50">
+        <h2 class="text-2xl p-5 mb-5 bg-violet-400">Drug Interactions</h2>
+        <ul class="px-3">
           <template x-for="interaction in interactions">
             <li x-text="interaction"></li>
+            <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-700">
           </template>
         </ul>
       </div>
